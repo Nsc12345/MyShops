@@ -4,17 +4,18 @@ using MyShop.InMemory;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using MyShop.Core.Contracts;
 
 namespace MyShop.Web.Controllers
 {
     public class ProductManagerController : Controller
     {
-         InMemoryRepository<Product> context;
-        InMemoryRepository<ProductCategory> productCategories;
-         public ProductManagerController()
+         IRepository<Product> context;
+        IRepository<ProductCategory> productCategories;
+         public ProductManagerController(IRepository<Product> productContext, IRepository<ProductCategory> productCategoryContext)
         {
-            context= new InMemoryRepository<Product>();
-            productCategories= new InMemoryRepository<ProductCategory>();
+            context= productContext;
+            productCategories= productCategoryContext;
         }
         // GET: ProductManager
         public ActionResult Index()

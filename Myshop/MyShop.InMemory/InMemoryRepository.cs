@@ -1,14 +1,13 @@
-﻿using System;
+﻿using MyShop.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
-using System.Text;
-using System.Threading.Tasks;
-using MyShop.Core.Models;
+using MyShop.Core.Contracts;
 
 namespace MyShop.InMemory
 {
-     public class InMemoryRepository<T> where  T: BaseEntity
+    public class InMemoryRepository<T> : IRepository<T> where  T: BaseEntity
      {
          public ObjectCache cache = MemoryCache.Default;
           List<T> items;
@@ -25,12 +24,12 @@ namespace MyShop.InMemory
 
          }
 
-         public void Commit()
-         {
-             cache[className] = items;
-         }
+        public void Commit()
+        {
+            cache[className] = items;
+        }
 
-         public void Insert(T t)
+        public void Insert(T t)
          {
              items.Add(t);
          }
